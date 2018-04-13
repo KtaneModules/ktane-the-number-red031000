@@ -13,7 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: theNumber
   title: The Number
-  description: 
+  description: 'Quick, press random buttons and hope for the best!
+
+
+    Manual located at: https://www.dropbox.com/s/o3tm3pgoswh3wbl/The%20Number.pdf?dl=0
+
+
+    Idea and Manual by Felix
+
+
+    Programming and TP support by red031000'
   version: 1.0
   outputFolder: build
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: 4306c31559cf9644db306f9bf96b1122, type: 3}
