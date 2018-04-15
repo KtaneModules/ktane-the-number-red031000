@@ -451,11 +451,22 @@ public class TheNumberScript : MonoBehaviour {
 						case "cancel":
 							buttons.Add(CancelButton);
 							break;
-						default:
+						case "0":
+						case "1":
+						case "2":
+						case "3":
+						case "4":
+						case "5":
+						case "6":
+						case "7":
+						case "8":
+						case "9":
 							int itemint;
 							int.TryParse(item, out itemint);
 							buttons.Add(Buttons[itemint]);
 							break;
+						default:
+							return null;
 					}
 				}
 				return buttons.ToArray();
