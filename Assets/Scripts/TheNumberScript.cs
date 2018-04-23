@@ -63,7 +63,8 @@ public class TheNumberScript : MonoBehaviour {
 		RandomSelected.Clear();
 		RandomiseNumbers();
 		NumberCalculations();
-
+		Debug.LogFormat("[The Number #{0}] First row is {1}, {2}, {3}, {4} and {5}", _moduleId, FirstRow[0], FirstRow[1], FirstRow[2], FirstRow[3], FirstRow[4]);
+		Debug.LogFormat("[The Number #{0}] Second row is {1}, {2}, {3}, {4} and {5}", _moduleId, SecondRow[0], SecondRow[1], SecondRow[2], SecondRow[3], SecondRow[4]);
 		//strike
 		Screen.text = "";
 		input = 0;
@@ -248,7 +249,7 @@ public class TheNumberScript : MonoBehaviour {
 		{
 			Number3 = 1;
 			Debug.LogFormat("[The Number #{0}] Third number is a 1 (solved greater than unsolved", _moduleId);
-		} else if (Info.GetSolvedModuleNames().Contains("Timezones") || Info.GetSolvedModuleNames().Contains("The Bulb") || Info.GetSolvedModuleNames().Contains("Semaphore"))
+		} else if (Info.GetSolvedModuleNames().Contains("Timezone") || Info.GetSolvedModuleNames().Contains("The Bulb") || Info.GetSolvedModuleNames().Contains("Semaphore"))
 		{
 			Number3 = 2;
 			Debug.LogFormat("[The Number #{0}] Third number is a 2 (timezones, the bulb or semaphore", _moduleId);

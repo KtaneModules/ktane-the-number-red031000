@@ -22,7 +22,10 @@ MonoBehaviour:
     Idea and Manual by Felix
 
 
-    Programming and TP support by red031000'
+    Programming and TP support by red031000
+
+
+    Mod ID: theNumber'
   version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 4306c31559cf9644db306f9bf96b1122, type: 3}
