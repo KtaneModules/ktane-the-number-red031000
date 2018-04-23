@@ -6,8 +6,8 @@ using Rnd = UnityEngine.Random;
 using System;
 using System.Text.RegularExpressions;
 
-public class TheNumberScript : MonoBehaviour {
-
+public class TheNumberScript : MonoBehaviour
+{
 	#region Global Variables
 	public KMBombInfo Info;
 	public KMAudio Audio;
@@ -24,9 +24,9 @@ public class TheNumberScript : MonoBehaviour {
 	private int StartTime, CurrentTime;
 	private List<string> ModulesName;
 	private DayOfWeek day;
-	List<int> RandomSelected = new List<int> { };
-	List<int> FirstRow = new List<int> { };
-	List<int> SecondRow = new List<int> { };
+	private List<int> RandomSelected = new List<int> { };
+	private List<int> FirstRow = new List<int> { };
+	private List<int> SecondRow = new List<int> { };
 
 	private string InputString = "";
 	private int Number1, Number2, Number3, Number4;
@@ -39,7 +39,7 @@ public class TheNumberScript : MonoBehaviour {
 	#endregion
 
 	#region Answer Calculation
-	void Start ()
+	void Start()
 	{
 		_moduleId = _moduleIdCounter++;
 		Module.OnActivate += Activate;
@@ -72,7 +72,7 @@ public class TheNumberScript : MonoBehaviour {
 		InputString = "";
 	}
 
-	void NumberCalculations()
+	private void NumberCalculations()
 	{
 		//count1
 		for (int i = 0; i <= 4; i++)
@@ -106,7 +106,7 @@ public class TheNumberScript : MonoBehaviour {
 			contains = true;
 	}
 
-	void RandomiseNumbers()
+	private void RandomiseNumbers()
 	{
 		foreach (TextMesh Mesh in ButtonTexts)
 		{
@@ -142,7 +142,7 @@ public class TheNumberScript : MonoBehaviour {
 		return answer;
 	}
 
-	void RunRules()
+	private void RunRules()
 	{
 		//First Number
 		if (Info.IsTwoFactorPresent())
@@ -367,6 +367,21 @@ public class TheNumberScript : MonoBehaviour {
 
 		RunRules();
 
+		switch (stage)
+		{
+			case 2: //all these are +1 due to the stage being incremented after the value is noted
+				input /= 1000;
+				break;
+			case 3:
+				input /= 100;
+				break;
+			case 4:
+				input /= 10;
+				break;
+			default:
+				break;
+		}
+
 		Debug.LogFormat("[The Number #{0}] Recieved {1}. Expected {2}", _moduleId, input, sequence);
 
 		if (input == sequence)
@@ -446,10 +461,12 @@ public class TheNumberScript : MonoBehaviour {
 						case "submit":
 						case "s":
 						case "e":
+						case "enter":
 							buttons.Add(SubmitButton);
 							break;
 						case "c":
 						case "cancel":
+						case "clear":
 							buttons.Add(CancelButton);
 							break;
 						case "0":
@@ -475,11 +492,11 @@ public class TheNumberScript : MonoBehaviour {
 			else
 				return null;
 		}
-		else if (command.Equals("submit") || command.Equals("e") || command.Equals("s"))
+		else if (command.Equals("submit") || command.Equals("e") || command.Equals("s") || command.Equals("enter"))
 		{
 			return new KMSelectable[] { SubmitButton };
 		}
-		else if (command.Equals("cancel") || command.Equals("c"))
+		else if (command.Equals("cancel") || command.Equals("c") || command.Equals("clear"))
 		{
 			return new KMSelectable[] { CancelButton };
 		}
