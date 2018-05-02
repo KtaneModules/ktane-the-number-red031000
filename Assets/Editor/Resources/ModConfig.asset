@@ -26,6 +26,6 @@ MonoBehaviour:
 
 
     Mod ID: theNumber'
-  version: 1.0
+  version: 1.7
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 4306c31559cf9644db306f9bf96b1122, type: 3}

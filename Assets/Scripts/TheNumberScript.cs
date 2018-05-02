@@ -12,7 +12,7 @@ public class TheNumberScript : MonoBehaviour
 	public KMBombInfo Info;
 	public KMAudio Audio;
 	public KMBombModule Module;
-
+	
 	public KMSelectable[] Buttons;
 	public TextMesh[] ButtonTexts;
 	public TextMesh Screen;
