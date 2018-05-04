@@ -61,6 +61,8 @@ public class TheNumberScript : MonoBehaviour
 			//rules must be calculated at submit button press
 		}
 		RandomSelected.Clear();
+		FirstRow.Clear();
+		SecondRow.Clear();
 		RandomiseNumbers();
 		NumberCalculations();
 		Debug.LogFormat("[The Number #{0}] First row is {1}, {2}, {3}, {4} and {5}", _moduleId, FirstRow[0], FirstRow[1], FirstRow[2], FirstRow[3], FirstRow[4]);
@@ -382,7 +384,7 @@ public class TheNumberScript : MonoBehaviour
 				break;
 		}
 
-		Debug.LogFormat("[The Number #{0}] Recieved {1}. Expected {2}", _moduleId, input, sequence);
+		Debug.LogFormat("[The Number #{0}] Received {1}. Expected {2}", _moduleId, input, sequence);
 
 		if (input == sequence)
 		{
