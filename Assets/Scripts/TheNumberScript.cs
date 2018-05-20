@@ -224,7 +224,7 @@ public class TheNumberScript : MonoBehaviour
 		} else if (SecondRow.Contains(7))
 		{
 			Number2 = 7;
-			Debug.LogFormat("[The Number #{0}] Second number is a 7 (7 in the second row)");
+			Debug.LogFormat("[The Number #{0}] Second number is a 7 (7 in the second row)", _moduleId);
 		} else
 		{
 			Number2 = 4;
