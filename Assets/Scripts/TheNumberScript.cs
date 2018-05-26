@@ -70,6 +70,10 @@ public class TheNumberScript : MonoBehaviour
 		//strike
 		Screen.text = "";
 		input = 0;
+		count1 = 0;
+		count2 = 0;
+		ordered = false;
+		contains = false;
 		stage = 1;
 		InputString = "";
 	}
