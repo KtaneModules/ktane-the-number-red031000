@@ -20,8 +20,8 @@ public class TheNumberScript : MonoBehaviour
 
 	private static int _moduleIdCounter = 1;
 	private int _moduleId = 0;
-
-	private int StartTime, CurrentTime;
+	private int StartTime;
+	private readonly int CurrentTime;
 	private List<string> ModulesName;
 	private DayOfWeek day;
 	private List<int> RandomSelected = new List<int> { };
@@ -35,7 +35,7 @@ public class TheNumberScript : MonoBehaviour
 	private int count1 = 0, count2 = 0;
 	private bool ordered = false, contains = false;
 
-	private bool _isSolved = false, _lightsOn = false, Started = false;
+	private bool _isSolved = false, _lightsOn = false, Started = false, Strike = false;
 	#endregion
 
 	#region Answer Calculation
@@ -53,6 +53,19 @@ public class TheNumberScript : MonoBehaviour
 
 	void Init()
 	{
+		//strike
+		if (Strike)
+		{
+			Screen.text = "";
+			input = 0;
+			count1 = 0;
+			count2 = 0;
+			ordered = false;
+			contains = false;
+			stage = 1;
+			InputString = "";
+			Strike = false;
+		}
 		if (!Started)
 		{
 			StartTime = Mathf.FloorToInt(Info.GetTime());
@@ -67,15 +80,6 @@ public class TheNumberScript : MonoBehaviour
 		NumberCalculations();
 		Debug.LogFormat("[The Number #{0}] First row is {1}, {2}, {3}, {4} and {5}", _moduleId, FirstRow[0], FirstRow[1], FirstRow[2], FirstRow[3], FirstRow[4]);
 		Debug.LogFormat("[The Number #{0}] Second row is {1}, {2}, {3}, {4} and {5}", _moduleId, SecondRow[0], SecondRow[1], SecondRow[2], SecondRow[3], SecondRow[4]);
-		//strike
-		Screen.text = "";
-		input = 0;
-		count1 = 0;
-		count2 = 0;
-		ordered = false;
-		contains = false;
-		stage = 1;
-		InputString = "";
 	}
 
 	private void NumberCalculations()
@@ -401,6 +405,7 @@ public class TheNumberScript : MonoBehaviour
 		{
 			Debug.LogFormat("[The Number #{0}] Strike, Reset module", _moduleId);
 			Module.HandleStrike();
+			Strike = true;
 			Init();
 		}
 	}
