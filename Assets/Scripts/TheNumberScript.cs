@@ -449,7 +449,7 @@ public class TheNumberScript : MonoBehaviour
 
 	#region Twitch Plays
 #pragma warning disable 414
-	private string TwitchHelpMessage = "Use '!{0} press 4 3 8 9 submit' to press the buttons in the positions 4, 3, 8 and 9 and the Submit button. The positions are numbered from 0-9 with 0 being the top left, proceeding in reading order. '!{0} Submit' and '!{0} Cancel' are also accepted";
+	private string TwitchHelpMessage = "Use '!{0} press 5 4 9 10 submit' to press the buttons in the positions 5, 4, 9 and 10 and the submit button. The positions are numbered from 1-10 with 1 being the top left, proceeding in reading order. '!{0} submit' and '!{0} cancel' are also accepted";
 #pragma warning restore 414
 	KMSelectable[] ProcessTwitchCommand(string command)
 	{
@@ -460,7 +460,7 @@ public class TheNumberScript : MonoBehaviour
 			string[] split = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 			foreach (string item in split.Skip(1))
 			{
-				valid &= (item.Contains("submit") || item.Contains("s") || item.Contains("c") || item.Contains("cancel") || item.Contains("e") || item.Any("0123456789".Contains));
+				valid &= (item.Contains("submit") || item.Contains("s") || item.Contains("c") || item.Contains("cancel") || item.Contains("e") || item.Any("123456789".Contains) || item.Contains("10"));
 			}
 			if (valid)
 			{
@@ -480,7 +480,6 @@ public class TheNumberScript : MonoBehaviour
 						case "clear":
 							buttons.Add(CancelButton);
 							break;
-						case "0":
 						case "1":
 						case "2":
 						case "3":
@@ -490,8 +489,10 @@ public class TheNumberScript : MonoBehaviour
 						case "7":
 						case "8":
 						case "9":
+						case "10":
 							int itemint;
 							int.TryParse(item, out itemint);
+							itemint--;
 							buttons.Add(Buttons[itemint]);
 							break;
 						default:
