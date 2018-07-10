@@ -143,7 +143,8 @@ public class TheNumberScript : MonoBehaviour
 	private List<string> RemoveSolved()
 	{
 		List<string> solved = Info.GetSolvedModuleNames();
-		List<string> answer = ModulesName;
+		List<string> answer = new List<string> { };
+		answer.AddRange(ModulesName);
 		foreach (string module in solved)
 		{
 			answer.Remove(module);
@@ -154,6 +155,7 @@ public class TheNumberScript : MonoBehaviour
 
 	private void RunRules()
 	{
+		List<string> removed = RemoveSolved();
 		//First Number
 		if (Info.IsTwoFactorPresent())
 		{
@@ -263,7 +265,7 @@ public class TheNumberScript : MonoBehaviour
 		{
 			Number3 = 2;
 			Debug.LogFormat("[The Number #{0}] Third number is a 2 (timezones, the bulb or semaphore", _moduleId);
-		} else if (RemoveSolved().Contains("Cryptography") || RemoveSolved().Contains("Light Cycle") || RemoveSolved().Contains("Piano Keys"))
+		} else if (removed.Contains("Cryptography") || removed.Contains("Light Cycle") || removed.Contains("Piano Keys"))
 		{
 			Number3 = 8;
 			Debug.LogFormat("[The Number #{0}] Third number is an 8 (cryptography, light cycle or piano keys)", _moduleId);
