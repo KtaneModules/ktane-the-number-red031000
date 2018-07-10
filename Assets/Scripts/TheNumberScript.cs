@@ -5,6 +5,7 @@ using System.Linq;
 using Rnd = UnityEngine.Random;
 using System;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 public class TheNumberScript : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class TheNumberScript : MonoBehaviour
 	private int count1 = 0, count2 = 0;
 	private bool ordered = false, contains = false;
 
-	private bool _isSolved = false, _lightsOn = false, Started = false, Strike = false;
+	private bool _isSolved = false, _lightsOn = false, Started = false, Strike = false, ForcedSolve = false;
 	#endregion
 
 	#region Answer Calculation
@@ -252,7 +253,7 @@ public class TheNumberScript : MonoBehaviour
 		} else if (ModulesName.Contains("The Gamepad") || ModulesName.Contains("Number Pad"))
 		{
 			Number3 = 6;
-			Debug.LogFormat("[The Number #{0}] Third number is a 6 (gamepad or numberpad)", _moduleId);
+			Debug.LogFormat("[The Number #{0}] Third number is a 6 (Gamepad or Numberpad)", _moduleId);
 		} else if (((int)(StartTime / 60.0f)) < ModulesName.Count)
 		{
 			Number3 = 0;
@@ -264,11 +265,11 @@ public class TheNumberScript : MonoBehaviour
 		} else if (Info.GetSolvedModuleNames().Contains("Timezone") || Info.GetSolvedModuleNames().Contains("The Bulb") || Info.GetSolvedModuleNames().Contains("Semaphore"))
 		{
 			Number3 = 2;
-			Debug.LogFormat("[The Number #{0}] Third number is a 2 (timezones, the bulb or semaphore", _moduleId);
+			Debug.LogFormat("[The Number #{0}] Third number is a 2 (Timezones, The Bulb or Semaphore", _moduleId);
 		} else if (removed.Contains("Cryptography") || removed.Contains("Light Cycle") || removed.Contains("Piano Keys"))
 		{
 			Number3 = 8;
-			Debug.LogFormat("[The Number #{0}] Third number is an 8 (cryptography, light cycle or piano keys)", _moduleId);
+			Debug.LogFormat("[The Number #{0}] Third number is an 8 (Cryptography, Light Cycle or Piano Keys)", _moduleId);
 		} else if (Info.GetStrikes() >= 1)
 		{
 			Number3 = 3;
@@ -300,7 +301,7 @@ public class TheNumberScript : MonoBehaviour
 		} else if (ModulesName.Contains("Forget Me Not"))
 		{
 			Number4 = 9;
-			Debug.LogFormat("[The Number #{0}] Fourth number is a 9 (forget me not)", _moduleId);
+			Debug.LogFormat("[The Number #{0}] Fourth number is a 9 (Forget Me Not)", _moduleId);
 		} else if (Info.GetPorts().GroupBy((x) => x).Any((y) => y.Count() >= 3))
 		{
 			Number4 = 7;
@@ -375,10 +376,12 @@ public class TheNumberScript : MonoBehaviour
 		SubmitButton.AddInteractionPunch();
 
 		if (!_lightsOn || _isSolved) return;
-		Debug.LogFormat("[The Number #{0}] Submit pressed, Running Rules", _moduleId);
+		if (!ForcedSolve)
+		{
+			Debug.LogFormat("[The Number #{0}] Submit pressed, Running Rules", _moduleId);
 
-		RunRules();
-
+			RunRules();
+		}
 		switch (stage)
 		{
 			case 2: //all these are +1 due to the stage being incremented after the value is noted
@@ -516,6 +519,25 @@ public class TheNumberScript : MonoBehaviour
 		}
 		else
 			return null;
+	}
+	private IEnumerator TwitchHandleForcedSolve()
+	{
+		if (!_isSolved)
+		{
+			yield return null;
+			Debug.LogFormat("[The Number #{0}] Module forcibly solved", _moduleId);
+			ForcedSolve = true;
+			RunRules();
+
+			IEnumerable<int> SequenceEnumerable = sequence.ToString().Select(digit => int.Parse(digit.ToString()));
+			foreach (int digit in SequenceEnumerable)
+			{
+				int index = RandomSelected.IndexOf(digit);
+				ButtonHandler(index);
+				yield return new WaitForSeconds(0.1f);
+			}
+			SubmitHandler();
+		}
 	}
 	#endregion
 }
