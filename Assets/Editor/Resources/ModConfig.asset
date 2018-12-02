@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 'Quick, press random buttons and hope for the best!
 
 
-    Manual located at: https://www.dropbox.com/s/o3tm3pgoswh3wbl/The%20Number.pdf?dl=0
+    Manual located at: https://ktane.timwi.de/HTML/The%20Number.html
 
 
     Idea and Manual by Felix
@@ -26,6 +26,6 @@ MonoBehaviour:
 
 
     Mod ID: theNumber'
-  version: 1.14
+  version: 1.15
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 4306c31559cf9644db306f9bf96b1122, type: 3}
